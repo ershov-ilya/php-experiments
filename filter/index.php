@@ -35,14 +35,25 @@ $filters=array(
     "FILTER_UNSAFE_RAW\t\t" =>  FILTER_UNSAFE_RAW // синоним FILTER_DEFAULT
 );
 
+$rating=array();
+foreach($filters as $k => $v){
+    $rating[$k]=10;
+}
+
 foreach($arr as $str){
     print "Raw: ".$str.PHP_EOL;
     foreach($filters as $name => $filter){
         $product=filter_var($str, $filter);
-        if($product==$str) {
+        if($product===$str) {
             $product='>>> БЕЗ ИЗМЕНЕНИЙ <<<';
+            $rating[$name]--;
         }
         print $name."\t".$product.PHP_EOL;
     }
     print PHP_EOL;
+}
+
+print "Rating:\n";
+foreach($rating as $name => $rate){
+    print $name."\t".$rate.PHP_EOL;
 }
