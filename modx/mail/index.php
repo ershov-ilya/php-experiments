@@ -13,28 +13,34 @@ header( 'Content-Type: text/plain; charset=utf-8' );
 define('MODX_API_MODE', true);
 require_once('../../../index.php');
 
-//$message = $modx->getChunk('myEmailTemplate');
-$message="Test message content";
-//die($message);
+//print "Ready\n";
 
-/** @var modX $modx */
-$modx->getService('mail', 'mail.modPHPMailer');
+$content=file_get_contents('index.html');
 
-//var_dump($modx->mail);
-//die;
-//$modx->mail->
-$modx->mail->set(modMail::MAIL_BODY, $message);
-$modx->mail->set(modMail::MAIL_FROM,'test@test.domfarfora.ru');
-$modx->mail->set(modMail::MAIL_FROM_NAME,'Johnny Tester');
-$modx->mail->set(modMail::MAIL_SUBJECT,'Check out my new email template!');
-$modx->mail->address('to','ershov.ilya@gmail.com');
-//$modx->mail->address('reply-to','noreply@effetto.pro');
-$modx->mail->setHTML(true);
-
-$res=$modx->mail->send();
-var_dump($res);
-
-if (!$modx->mail->send()) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'An error occurred while trying to send the email: '.$modx->mail->mailer->ErrorInfo);
+function sendEmail($email, array $options = array()) {
+    /** @var modPHPMailer $mail */
+    global $modx;
+    print_r($options);
+    $mail = $modx->getService('mail', 'mail.modPHPMailer');
+    $mail->reset();
+    $mail->set(modMail::MAIL_BODY, $options['content']);
+    $mail->set(modMail::MAIL_FROM, $modx->getOption('mail_smtp_user'));
+    $mail->set(modMail::MAIL_FROM_NAME,  $modx->getOption('site_name'));
+    $mail->set(modMail::MAIL_SUBJECT, $options['subject']);
+    $mail->address('to', $email);
+    $mail->address('reply-to', $modx->getOption('mail_smtp_user'));
+    $mail->setHTML(true);
+    $response = !$mail->send()
+        ? $mail->mailer->errorInfo
+        : true;
+    $mail->reset();
+    return $response;
 }
-$modx->mail->reset();
+
+$props=array(
+    'subject' =>  'Тестовое сообщение из скрипта',
+    'content'    =>  $content,
+);
+
+var_dump(sendEmail('ershov.ilya@gmail.com', $props));
+//print $content;
