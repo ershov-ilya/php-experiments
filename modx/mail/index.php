@@ -42,5 +42,5 @@ $props=array(
     'content'    =>  $content,
 );
 
-var_dump(sendEmail('ershov.ilya@gmail.com', $props));
-//print $content;
+//var_dump(sendEmail('ershov.ilya@gmail.com', $props));
+print $content;
