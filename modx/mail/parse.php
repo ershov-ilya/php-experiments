@@ -15,5 +15,6 @@ require_once('../../../index.php');
 
 //print "Ready\n";
 
+/** @var modX $modx */
 $content=$modx->runSnippet('order.parse');
 print $content;
